@@ -5,6 +5,7 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import workoutRoute from "./routes/workoutRoute.js";
 import mealRoute from "./routes/mealRoute.js";
 
+//bla
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5001;
