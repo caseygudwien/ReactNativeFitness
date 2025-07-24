@@ -5,12 +5,6 @@ export const sql = neon(process.env.DATABASE_URL);
 
 export async function initDB() {
   try {
-    await sql`DROP TABLE IF EXISTS meal_entries CASCADE`;
-    await sql`DROP TABLE IF EXISTS meals CASCADE`;
-    await sql`DROP TABLE IF EXISTS workout_entries CASCADE`;
-    await sql`DROP TABLE IF EXISTS workouts CASCADE`;
-    await sql`DROP TABLE IF EXISTS users CASCADE`;
-
     await sql`
         CREATE TABLE IF NOT EXISTS users(
             id SERIAL PRIMARY KEY,
