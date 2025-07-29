@@ -1,6 +1,9 @@
 import express from "express";
 import { sql } from "../config/db.js";
-import { getMealByMealId } from "../controllers/mealController.js";
+import {
+  getGoalsByUserId,
+  getMealByMealId,
+} from "../controllers/mealController.js";
 import { getMealsByUserId } from "../controllers/mealController.js";
 import { deleteMealByMealId } from "../controllers/mealController.js";
 import { postMeal } from "../controllers/mealController.js";
@@ -18,5 +21,7 @@ router.get("/user/:userId", getMealsByUserId);
 
 //X
 router.delete("/:id", deleteMealByMealId);
+
+router.get("/:userId", getGoalsByUserId);
 
 export default router;

@@ -103,3 +103,16 @@ export async function deleteMealByMealId(req, res) {
       .json({ message: "Internal server error: ", error: e.message });
   }
 }
+
+export async function getGoalsByUserId(req, res) {
+  try {
+    const { userId } = req.params;
+    const user = await sql`SELECT * FROM users WHERE user_id = ${userId};`;
+    res.status(200).json(user);
+  } catch (e) {
+    console.log("Error getting goals: ", e);
+    res
+      .status(500)
+      .json({ message: "Internal server error: ", error: e.message });
+  }
+}
