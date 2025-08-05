@@ -11,7 +11,9 @@ export async function initDB() {
             user_id VARCHAR(255) NOT NULL UNIQUE,
             email VARCHAR(255) NOT NULL UNIQUE,
             goalCalories INT,
-            goalProtein INT
+            goalProtein INT,
+            goalFats INT,
+            goalCarbs INT
         )
     `;
 
