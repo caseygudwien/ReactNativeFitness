@@ -3,6 +3,7 @@ import { sql } from "../config/db.js";
 import {
   getGoalsByUserId,
   getMealByMealId,
+  updateGoalsByUserId,
 } from "../controllers/mealController.js";
 import { getMealsByUserId } from "../controllers/mealController.js";
 import { deleteMealByMealId } from "../controllers/mealController.js";
@@ -23,5 +24,7 @@ router.get("/user/:userId", getMealsByUserId);
 router.delete("/:id", deleteMealByMealId);
 
 router.get("/:userId", getGoalsByUserId);
+
+router.put("/update/userId", updateGoalsByUserId);
 
 export default router;

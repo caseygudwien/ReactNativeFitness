@@ -41,7 +41,7 @@ export async function postMeal(req, res) {
 
     res.status(201).json(meal);
   } catch (e) {
-    onsole.log("Error creating meal", e);
+    console.log("Error creating meal", e);
     res
       .status(500)
       .json({ message: "Internal server error: ", error: e.message });
@@ -111,6 +111,36 @@ export async function getGoalsByUserId(req, res) {
     res.status(200).json(user);
   } catch (e) {
     console.log("Error getting goals: ", e);
+    res
+      .status(500)
+      .json({ message: "Internal server error: ", error: e.message });
+  }
+}
+
+export async function updateGoalsByUserId(req, res) {
+  try {
+    const { userId } = req.params;
+    const { calories, protein, fats, carbs } = req.body;
+
+    const updatedUser = await sql`
+      UPDATE users 
+      SET 
+        goalcalories = ${calories},
+        goalprotein = ${protein},
+        goalfats = ${fats},
+        goalcarbs = ${carbs}
+      WHERE user_id = ${userId}
+      RETURNING goalcalories, goalprotein, goalfats, goalcarbs
+    `;
+
+    res.status(201).json({
+      calories: updatedUser[0].goalcalories,
+      protein: updatedUser[0].goalprotein,
+      fats: updatedUser[0].goalfats,
+      carbs: updatedUser[0].goalcarbs,
+    });
+  } catch (e) {
+    console.log("Error updating goals", e);
     res
       .status(500)
       .json({ message: "Internal server error: ", error: e.message });
