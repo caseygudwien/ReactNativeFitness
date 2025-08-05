@@ -11,20 +11,12 @@ import { postMeal } from "../controllers/mealController.js";
 
 const router = express.Router();
 
-//X
 router.post("/meal/", postMeal);
-
-//X
 router.get("/:mealId", getMealByMealId);
-
-//X
-router.get("/user/:userId", getMealsByUserId);
-
-//X
 router.delete("/:id", deleteMealByMealId);
 
-router.get("/:userId", getGoalsByUserId);
-
+router.get("/meal/:userId", getMealsByUserId);
+router.get("/user/:userId", getGoalsByUserId);
 router.put("/update/userId", updateGoalsByUserId);
 
 export default router;
