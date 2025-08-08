@@ -123,7 +123,8 @@ export async function getTotalSummaryByUserId(req, res) {
         COALESCE(SUM(we.weight * we.reps), 0) as volume,
         COALESCE(SUM(we.reps), 0) as total_reps,
         COUNT(we.entry_id) as total_sets,
-        COUNT(DISTINCT w.workout_id) as total_workouts
+        COUNT(DISTINCT w.workout_id) as total_workouts,
+        COALESCE(SUM(w.workout_time), 0) as total_time
       FROM workout_entries we
       JOIN workouts w ON we.workout_id = w.workout_id
       WHERE w.user_id = ${userId}
@@ -134,6 +135,7 @@ export async function getTotalSummaryByUserId(req, res) {
       reps: summaryResult[0].total_reps,
       sets: summaryResult[0].total_sets,
       workouts: summaryResult[0].total_workouts,
+      time: summaryResult[0].total_time,
     });
   } catch (e) {
     console.log("Error creating summary", e);
