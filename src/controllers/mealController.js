@@ -52,6 +52,10 @@ export async function getMealByMealId(req, res) {
   try {
     const { mealId } = req.params;
 
+    const name = await sql`
+      SELECT me.meal_name as name From meal_entries me WHERE me.meal_id = ${mealId};
+    `;
+
     const calsResult = await sql`
       SELECT me.calories as cals From meal_entries me WHERE me.meal_id = ${mealId};
     `;
@@ -69,6 +73,7 @@ export async function getMealByMealId(req, res) {
     `;
 
     res.status(200).json({
+      name: name[0].name,
       calories: calsResult[0].cals,
       protein: proteinResult[0].pro,
       carbs: carbsResult[0].carbs,
@@ -93,7 +98,7 @@ export async function deleteMealByMealId(req, res) {
     const result =
       await sql` DELETE FROM meals WHERE meal_id = ${id} RETURNING *`;
     if (result.length === 0) {
-      return res.status(404).json({ message: "Workout not found" });
+      return res.status(404).json({ message: "Meal not found" });
     }
     res.status(200).json({ message: "Meal deleted successfully" });
   } catch (e) {

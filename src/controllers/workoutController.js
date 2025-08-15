@@ -102,9 +102,9 @@ export async function getSummaryByWorkoutId(req, res) {
     `;
 
     res.status(200).json({
-      volume: volumeResult[0].volume,
-      reps: repsResult[0].reps,
-      sets: setsResult[0].sets,
+      volume: Number(volumeResult[0].volume),
+      reps: Number(repsResult[0].reps),
+      sets: Number(setsResult[0].sets),
     });
   } catch (e) {
     console.log("Error creating summary", e);
