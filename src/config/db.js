@@ -22,7 +22,7 @@ export async function initDB() {
         workout_id SERIAL PRIMARY KEY,
         user_id VARCHAR REFERENCES users(user_id),
         workout_type VARCHAR(255) NOT NULL,
-        workout_time TIME(0),
+        workout_time INTERVAL(0),
         created_at DATE NOT NULL DEFAULT CURRENT_DATE
       )
     `;
