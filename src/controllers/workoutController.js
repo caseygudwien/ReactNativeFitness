@@ -131,11 +131,11 @@ export async function getTotalSummaryByUserId(req, res) {
     `;
 
     res.status(200).json({
-      volume: summaryResult[0].volume,
-      reps: summaryResult[0].total_reps,
-      sets: summaryResult[0].total_sets,
-      workouts: summaryResult[0].total_workouts,
-      time: summaryResult[0].total_time,
+      volume: Number(summaryResult[0].volume),
+      reps: Number(summaryResult[0].total_reps),
+      sets: Number(summaryResult[0].total_sets),
+      workouts: Number(summaryResult[0].total_workouts),
+      time: Number(summaryResult[0].total_time),
     });
   } catch (e) {
     console.log("Error creating summary", e);
