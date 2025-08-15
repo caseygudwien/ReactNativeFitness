@@ -124,7 +124,7 @@ export async function getTotalSummaryByUserId(req, res) {
         COALESCE(SUM(we.reps), 0) as total_reps,
         COUNT(we.entry_id) as total_sets,
         COUNT(DISTINCT w.workout_id) as total_workouts,
-        COALESCE(SUM(w.workout_time), 0) as total_time
+        COALESCE(SUM(w.workout_time), INTERVAL '0 seconds') AS total_time
       FROM workout_entries we
       JOIN workouts w ON we.workout_id = w.workout_id
       WHERE w.user_id = ${userId}
