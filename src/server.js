@@ -18,7 +18,7 @@ app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(express.json());
 
 app.use("/api/workouts", workoutRoute);
