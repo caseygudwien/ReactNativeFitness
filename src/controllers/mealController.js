@@ -151,3 +151,21 @@ export async function updateGoalsByUserId(req, res) {
       .json({ message: "Internal server error: ", error: e.message });
   }
 }
+
+export async function postUser(req, res) {
+  try {
+    const { user_id, email, goalcalories, goalprotein, goalfats, goalcarbs } =
+      req.body;
+
+    const [user] =
+      await sql`INSERT INTO users(user_id, email, goalcalories, goalprotein, goalfats, goalcarbs )
+      VALUES(${user_id},${email},${goalcalories},${goalprotein},${goalfats},${goalcarbs})`;
+
+    res.status(201).json(user);
+  } catch (e) {
+    console.log("Error creating user", e);
+    res
+      .status(500)
+      .json({ message: "Internal server error: ", error: e.message });
+  }
+}

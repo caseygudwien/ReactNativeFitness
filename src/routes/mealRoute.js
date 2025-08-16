@@ -7,10 +7,11 @@ import {
 } from "../controllers/mealController.js";
 import { getMealsByUserId } from "../controllers/mealController.js";
 import { deleteMealByMealId } from "../controllers/mealController.js";
-import { postMeal } from "../controllers/mealController.js";
+import { postMeal, postUser } from "../controllers/mealController.js";
 
 const router = express.Router();
 
+router.post("/user/", postUser);
 router.post("/meal/", postMeal);
 router.get("/:mealId", getMealByMealId);
 router.delete("/:id", deleteMealByMealId);
