@@ -18,8 +18,7 @@ export async function getMealsByUserId(req, res) {
 
 export async function postMeal(req, res) {
   try {
-    const { user_id, meal_type, meal_name, calories, protein, fats, carbs } =
-      req.body;
+    const { user_id, meal_type, entries } = req.body;
 
     const [meal] = await sql`
       INSERT INTO meals(user_id, meal_type)
@@ -27,17 +26,19 @@ export async function postMeal(req, res) {
       RETURNING meal_id
     `;
 
-    await sql`
+    for (const entry of entries) {
+      await sql`
     INSERT INTO meal_entries(meal_id, meal_name, calories, protein, fats, carbs)
     VALUES(
         ${meal.meal_id},
-        ${meal_name},
-        ${calories},
-        ${protein},
-        ${fats},
-        ${carbs}
+        ${entry.meal_name},
+        ${entry.calories},
+        ${entry.protein},
+        ${entry.fats},
+        ${entry.carbs}
     )
     `;
+    }
 
     res.status(201).json(meal);
   } catch (e) {
